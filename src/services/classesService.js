@@ -1,15 +1,19 @@
 const classesRepository = require('../repositories/classesRepository');
 const ApiError = require('../utils/ApiError');
+const { buildPaginationMeta } = require('../helpers/paginationHelper');
 
 class ClassesService {
-  async getAll() {
-    const classes = await classesRepository.getAll();
+  async getAll(pagination) {
+    const { data, total } = await classesRepository.getAll(pagination);
 
-    if (!classes || classes.length === 0) {
-      throw new ApiError(404, 'Não há classes cadastradas!', 'classesService.getAll');
-    }
+    const lastPage = pagination.limit > 0
+      ? Math.ceil(total / pagination.limit)
+      : 0;
 
-    return classes;
+    return {
+      data,
+      meta: buildPaginationMeta(total, pagination)
+    };
   }
 
   async getRandomClass() {

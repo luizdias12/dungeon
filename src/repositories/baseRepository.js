@@ -4,7 +4,7 @@ class BaseRepository {
     this.table = table;
   }
 
-    async paginate(pagination, options = {}) {
+  async paginate(pagination = {}, options = {}) {
     const { limit, offset, search, sort, order, filters } = pagination;
 
     let query = `SELECT * FROM ${this.table}`;
@@ -70,7 +70,7 @@ class BaseRepository {
         data,
         total
     };
-    }
+  }
 }
 
 module.exports = BaseRepository;

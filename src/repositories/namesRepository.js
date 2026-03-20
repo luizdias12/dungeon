@@ -13,14 +13,28 @@ class NamesRepository {
   }
 
   async getRandomName(genderId, raceId) {
-    const query = `SELECT * FROM names
-      WHERE id >= (
-        SELECT FLOOR(RAND() * (SELECT MAX(id) FROM names))
-      )
-        AND gender_id = ? AND race_id = ?
-      LIMIT 1`;
-    const rows = await db.query(query, [genderId, raceId]);
-    return rows[0] || null;
+    const countQuery = `
+      SELECT COUNT(*) AS total
+      FROM names
+      WHERE gender_id = ? AND race_id = ?
+    `;
+
+    const countResult = await db.query(countQuery, [genderId, raceId]);
+    const total = countResult[0].total;
+
+    if (total === 0) return null;
+
+    const randomOffset = Math.floor(Math.random() * total);
+
+    const dataQuery = `
+      SELECT *
+      FROM names
+      WHERE gender_id = ? AND race_id = ?
+      LIMIT 1 OFFSET ?
+    `;
+
+    const result = await db.query(dataQuery, [genderId, raceId, randomOffset]);
+    return result[0] || null;
   }
 }
 
