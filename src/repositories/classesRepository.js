@@ -6,12 +6,6 @@ class ClassesRepository {
     return db.query(query);
   }
 
-  async getById(id) {
-    const query = `SELECT * FROM classes WHERE id = ? ORDER BY id`;
-    const rows = await db.query(query, [id]);
-    return rows[0] || null;
-  }
-
   async getRandomClass() {
     const query = `SELECT * FROM classes
       WHERE id >= (

@@ -12,22 +12,6 @@ class RacesService {
     return races;
   }
 
-  async getById(id) {
-    const parsedId = Number(id);
-
-    if (!Number.isInteger(parsedId)) {
-      throw new ApiError(400, 'ID inválido!', 'raceService.getById');
-    }
-
-    const race = await racesRepository.getById(parsedId);
-
-    if (!race || race.length === 0) {
-      throw new ApiError(404, 'Raça não encontrada!', 'raceService.getById');
-    }
-
-    return race;
-  }
-
   async getRandomRace() {
     const race = await racesRepository.getRandomRace();
 

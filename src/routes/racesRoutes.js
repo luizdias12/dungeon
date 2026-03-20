@@ -6,9 +6,6 @@ const racesController = require('../controllers/races');
 router.get('/', racesController.getAll);
 router.get('/random', racesController.getRandomRace);
 
-// ROTAS GET DINAMICAS
-router.get('/:id', racesController.getById);
-
 // ROTAS POST
 
 module.exports = router;

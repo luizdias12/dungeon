@@ -12,22 +12,6 @@ class ClassesService {
     return classes;
   }
 
-  async getById(id) {
-    const parsedId = Number(id);
-
-    if (!Number.isInteger(parsedId)) {
-      throw new ApiError(400, 'ID inválido!', 'classesService.getById');
-    }
-
-    const classe = await classesRepository.getById(parsedId);
-
-    if (!classe || classe.length === 0) {
-      throw new ApiError(404, 'Classe não encontrada!', 'classesService.getById');
-    }
-
-    return classe;
-  }
-
   async getRandomClass() {
     const classe = await classesRepository.getRandomClass();
 

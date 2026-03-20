@@ -12,24 +12,6 @@ class NamesRepository {
     });
   }
 
-  async getById(id) {
-    const query = `SELECT * FROM names WHERE id = ? ORDER BY id`;
-    const rows = await db.query(query, [id]);
-    return rows[0] || null;
-  }
-
-  async getByRace(raceId) {
-    const query = `SELECT * FROM names WHERE race_id = ? ORDER BY id`;
-    const rows = await db.query(query, [raceId]);
-    return rows || null;
-  }
-
-  async getByGender(genderId) {
-    const query = `SELECT * FROM names WHERE gender_id = ? ORDER BY id`;
-    const rows = await db.query(query, [genderId]);
-    return rows || null;
-  }
-
   async getRandomName(genderId, raceId) {
     const query = `SELECT * FROM names
       WHERE id >= (

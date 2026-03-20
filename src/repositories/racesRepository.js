@@ -6,12 +6,6 @@ class RacesRepository {
     return await db.query(query);
   }
 
-  async getById(id) {
-    const query = `SELECT * FROM races WHERE id = ? ORDER BY id`;
-    const rows = await db.query(query, [id]);
-    return rows[0] || null;
-  }
-
   async getRandomRace() {
     const query = `SELECT * FROM races
       WHERE id >= (

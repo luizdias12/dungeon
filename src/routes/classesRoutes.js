@@ -6,9 +6,6 @@ const classesController = require('../controllers/classes');
 router.get('/', classesController.getAll);
 router.get('/random', classesController.getRandomClass);
 
-// ROTAS GET DINAMICAS
-router.get('/:id', classesController.getById);
-
 // ROTAS POST
 
 module.exports = router;
